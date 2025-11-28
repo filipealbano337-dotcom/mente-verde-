@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Mente Verde — Tudo (Feito por Filipe 2025 com ajuda de sua equipe)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#e8fff6; --bg2:#e3f7ff;
+  --p1:#0f5132; --p2:#16a34a; --accent:#ffd166; --soft:#9be7c4;
+  --muted:#1f4b3a; --card:#fff; --radius:14px; --shadow:0 20px 60px rgba(10,40,30,0.08);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(120deg,var(--bg1),var(--bg2));background-size:300% 300%;animation:bgShift 16s ease-in-out infinite;color:var(--muted);-webkit-font-smoothing:antialiased}
+@keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.container{max-width:1200px;margin:18px auto;padding:18px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:88px;height:88px;border-radius:18px;background:linear-gradient(135deg,var(--p1),var(--p2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-family:Poppins;font-size:22px;box-shadow:0 18px 50px rgba(20,80,60,0.12)}
+.title h1{margin:0;font-family:Poppins;font-size:26px}
+.title p{margin:2px 0;color:rgba(35,73,55,0.9)}
+.controls{display:flex;gap:10px}
+.btn{background:linear-gradient(90deg,var(--p2),var(--soft));color:white;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;font-weight:700;box-shadow:0 8px 20px rgba(12,60,45,0.06)}
+.btn.ghost{background:transparent;border:1px solid rgba(20,120,80,0.08);color:var(--p1)}
+.nav{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.nav button{background:transparent;border:1px solid rgba(42,157,143,0.06);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;color:var(--muted)}
+.nav button.active{background:linear-gradient(90deg,var(--p1),var(--p2));color:white;box-shadow:0 8px 20px rgba(12,60,45,0.08)}
+.layout{display:grid;grid-template-columns:1fr 380px;gap:22px;margin-top:18px}
+@media(max-width:980px){.layout{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);overflow:hidden}
+.hero{display:flex;gap:18px;align-items:center}
+.hero-art{width:260px;height:150px;border-radius:12px;background:linear-gradient(180deg,#f7fffb,#eefef3);display:flex;align-items:center;justify-content:center;color:var(--p1);font-weight:700;position:relative;overflow:hidden}
+.catalog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+@media(max-width:700px){.catalog-grid{grid-template-columns:1fr}}
+.disease{padding:14px;border-radius:12px;background:linear-gradient(180deg,#fff,#fbfff9);border:1px solid rgba(12,50,30,0.03);transition:transform .26s,box-shadow .26s}
+.disease:hover{transform:translateY(-10px);box-shadow:0 40px 80px rgba(10,40,25,0.08)}
+.quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.quiz-tile{padding:14px;border-radius:12px;cursor:pointer;border:1px solid rgba(12,50,30,0.03);transition:transform .18s;background:linear-gradient(90deg, rgba(22,163,74,0.04), rgba(86,197,150,0.02))}
+.quiz-tile:hover{transform:translateY(-8px)}
+#quizModal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:linear-gradient(rgba(6,20,10,0.66),rgba(6,20,10,0.66));z-index:999}
+#quizCard{width:min(980px,96%);max-height:92%;overflow:auto;border-radius:14px;padding:18px;background:var(--card);box-shadow:0 30px 80px rgba(6,40,20,0.36);transform:translateY(12px);opacity:0;transition:all .28s}
+#quizModal.show #quizCard{transform:none;opacity:1}
+.progress{height:12px;background:linear-gradient(90deg,#f0f7f3,#eefaf6);border-radius:999px;overflow:hidden}
+.progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--p2),var(--soft));width:0%;transition:width .36s ease}
+.options{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.option-btn{padding:12px;border-radius:12px;border:1px solid rgba(12,50,30,0.06);background:#fff;cursor:pointer;transition:transform .12s,box-shadow .12s}
+.option-btn:hover{transform:translateX(6px);box-shadow:0 8px 24px rgba(10,40,25,0.06)}
+.option-btn.selected{background:linear-gradient(90deg,var(--p2),var(--soft));color:white;border:0}
+.result{margin-top:12px;padding:12px;border-radius:12px;background:linear-gradient(90deg,#f0fff4,#e8fff0);font-weight:700;color:var(--p1)}
+.chat-box{display:flex;flex-direction:column;height:420px}
+.chat-window{flex:1;padding:12px;border-radius:12px;background:linear-gradient(180deg,#fbfff9,#f3fff2);overflow:auto}
+.chat-bubble{display:inline-block;padding:10px 12px;border-radius:12px;margin:8px 0;max-width:78%}
+.chat-bot{background:linear-gradient(180deg,#eefbf0,#e6f7e8);border:1px solid rgba(15,122,83,0.04)}
+.chat-user{background:linear-gradient(90deg,var(--p2),var(--soft));color:white;float:right}
+.chat-input{display:flex;gap:8px;margin-top:8px}
+.chat-input input{flex:1;padding:10px;border-radius:10px;border:1px solid #e9f6ef}
+.diary{background:linear-gradient(180deg,#fff,#f7fff7);padding:12px;border-radius:12px}
+.diary-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.diary-item{padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfff9);border:1px solid rgba(10,40,20,0.03)}
+.fab{position:fixed;right:20px;bottom:22px;background:linear-gradient(135deg,var(--p1),var(--soft));color:white;width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:0 18px 50px rgba(12,60,45,0.16);cursor:pointer;z-index:900;animation:fabPulse 2s infinite}
+@keyframes fabPulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+.shimmer{background:linear-gradient(90deg, rgba(255,255,255,0.0), rgba(255,255,255,0.6), rgba(255,255,255,0.0));background-size:200% 100%;animation:shimmer 2.4s linear infinite}
+@keyframes shimmer{0%{background-position:-100% 0}100%{background-position:100% 0}}
+.leaf{position:fixed;bottom:-50px;font-size:20px;opacity:0.95;pointer-events:none;z-index:800}
+.small{font-size:13px;color:#355f4f}
+footer.credit{margin-top:24px;text-align:center;color:var(--p1);font-weight:700;padding:18px}
+@media(max-width:700px){ .catalog-grid, .quiz-grid{grid-template-columns:1fr} .layout{grid-template-columns:1fr} .hero{flex-direction:column} }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">MV</div>
+        <div class="title"><h1>Mente Verde</h1><p>Cuide da sua mente — informação, quizzes e apoio</p></div>
+      </div>
+      <div class="controls">
+        <button class="btn" onclick="navGo('quizzes')">Fazer quiz</button>
+        <button class="btn ghost" onclick="navGo('aprender')">Aprender</button>
+      </div>
+    </header>
+
+    <nav class="nav" role="navigation">
+      <button class="active" data-section="home">🏠 Home</button>
+      <button data-section="quizzes">❓ Quizzes</button>
+      <button data-section="aprender">📚 Aprender</button>
+      <button data-section="diario">📝 Diário</button>
+      <button data-section="ajuda">💬 Ajuda</button>
+    </nav>
+
+    <div class="layout">
+      <main>
+        <!-- HOME -->
+        <section id="home" class="card">
+          <div class="hero">
+            <div>
+              <h2>Você não está sozinho — Mente Verde</h2>
+              <p class="small">Informação confiável, quizzes (12 perguntas cada), assistente que conversa e diário privado.</p>
+              <div style="margin-top:12px;display:flex;gap:10px">
+                <button class="btn" onclick="navGo('quizzes')">Fazer um quiz</button>
+                <button class="btn ghost" onclick="navGo('aprender')">Ler explicações</button>
+              </div>
+            </div>
+            <div class="hero-art" aria-hidden><div style="font-size:40px">🌿</div></div>
+          </div>
+
+          <div style="margin-top:18px" class="card shimmer">
+            <h3>Destaques</h3>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+              <div style="flex:1;min-width:200px;padding:12px;border-radius:12px;background:linear-gradient(90deg,#fff,#f7fff7)">Quizzes com 12 perguntas — um por vez</div>
+              <div style="flex:1;min-width:200px;padding:12px;border-radius:12px;background:linear-gradient(90deg,#fff,#f7fff7)">Assistente que aprende com você</div>
+              <div style="flex:1;min-width:200px;padding:12px;border-radius:12px;background:linear-gradient(90deg,#fff,#f7fff7)">Diário privado (no navegador)</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- APRENDER -->
+        <section id="aprender" class="card" style="display:none">
+          <h2>Aprender</h2>
+          <p class="small">Clique em qualquer condição para ver a explicação detalhada (esta página NÃO contém quizzes).</p>
+          <div class="catalog-grid" id="catalogGrid"></div>
+        </section>
+
+        <!-- QUIZZES -->
+        <section id="quizzes" class="card" style="display:none">
+          <h2>Quizzes</h2>
+          <p class="small">Escolha um quiz — cada quiz é apresentado pergunta a pergunta com barra de progresso.</p>
+          <div class="quiz-grid" id="quizGrid" style="margin-top:12px"></div>
+        </section>
+
+        <!-- DIÁRIO -->
+        <section id="diario" class="card" style="display:none">
+          <h2>Diário</h2>
+          <p class="small">Registre como está se sentindo — salvo somente no seu navegador.</p>
+          <div class="diary">
+            <textarea id="diaryText" rows="5" style="width:100%;padding:12px;border-radius:10px;border:1px solid #e8f6ef" placeholder="Escreva aqui..."></textarea>
+            <div style="margin-top:8px"><button id="saveDiary" class="btn">Salvar entrada</button></div>
+            <div id="diaryList" class="diary-list"></div>
+          </div>
+        </section>
+
+        <!-- AJUDA -->
+        <section id="ajuda" class="card" style="display:none">
+          <h2>Assistente — Mente Verde</h2>
+          <p class="small">Converse com o assistente — ele tenta identificar emoção, sugere passos e abre quizzes quando solicitado.</p>
+          <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-top:8px">
+            <div style="flex:1;min-width:300px">
+              <div class="chat-box">
+                <div id="chatWindow" class="chat-window" aria-live="polite"></div>
+                <div class="chat-input"><input id="chatInput" placeholder="Escreva o que sente..." /><button id="chatSend" class="btn">Enviar</button></div>
+              </div>
+            </div>
+            <aside style="width:320px;min-width:260px">
+              <div class="card"><h4>Recursos</h4><p class="small">CVV: 188 — apoio emocional (Brasil). Se estiver em risco, procure emergência.</p></div>
+            </aside>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- SIDE -->
+      <aside>
+        <div class="card">
+          <h3>Quizzes rápidos</h3>
+          <div id="quickQuizzes" style="margin-top:8px"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Sobre</h3>
+          <p class="small">Mente Verde — projeto educativo sobre saúde mental.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="credit">Feito por Filipe 2025 com ajuda de sua equipe 🌿</footer>
+  </div>
+
+  <div class="fab" id="fab" title="Abrir assistente">💬</div>
+
+  <!-- QUIZ MODAL -->
+  <div id="quizModal" role="dialog" aria-modal="true"><div id="quizCard" class="card"></div></div>
+
+<script>
+/* =================== DADOS (Doenças + QUIZZES com 12 perguntas cada, todas completas) =================== */
+const DISEASES = [
+  {id:'ansiosos', title:'Transtornos ansiosos', short:'Medo e preocupação excessivos (TAG, pânico, fobias).', details:`Transtornos de ansiedade envolvem preocupação excessiva, ataques de pânico e evitamento. Tratamentos incluem terapia e, quando necessário, medicação.`},
+  {id:'depressivos', title:'Transtornos depressivos', short:'Tristeza persistente e perda de interesse.', details:`Depressão implica humor deprimido, perda de interesse, alterações do sono e apetite. Busque avaliação profissional se sintomas persistirem.`},
+  {id:'toc', title:'Transtorno obsessivo-compulsivo (TOC)', short:'Pensamentos intrusivos e rituais repetitivos.', details:`TOC envolve obsessões (pensamentos intrusivos) e compulsões (rituais) que visam reduzir ansiedade.`},
+  {id:'bipolar', title:'Transtorno bipolar', short:'Oscilações entre mania/hipomania e depressão.', details:`Caracteriza-se por episódios de humor elevado e episódios depressivos; requer acompanhamento psiquiátrico.`},
+  {id:'psicoticos', title:'Transtornos psicóticos', short:'Perda de contato com a realidade (ex.: esquizofrenia).', details:`Inclui delírios e alucinações; avaliação e tratamento psiquiátrico são essenciais.`},
+  {id:'neurodesenvolvimento', title:'Transtornos do neurodesenvolvimento', short:'TEA, TDAH e similares.', details:`Condições que surgem na infância afetando atenção, comunicação e comportamento.`},
+  {id:'neurocognitivos', title:'Transtornos neurocognitivos', short:'Demências e perda cognitiva.', details:`Declínio cognitivo progressivo que afeta memória, linguagem e autonomia.`},
+  {id:'personalidade', title:'Transtornos de personalidade', short:'Padrões duradouros que dificultam relações.', details:`Padrões rígidos de comportamento que causam sofrimento e prejudicam relacionamentos.`},
+  {id:'uso_substancias', title:'Transtornos por uso de substâncias', short:'Uso prejudicial de álcool e drogas.', details:`Uso de substâncias que causa prejuízos sociais, legais e de saúde.`},
+  {id:'sono', title:'Transtornos do sono', short:'Insônia, apneia e narcolepsia.', details:`Distúrbios do sono prejudicam funcionamento diurno e saúde geral.`},
+  {id:'burnout', title:'Síndrome de Burnout', short:'Esgotamento por trabalho crônico.', details:`Exaustão emocional relacionada ao trabalho, com distanciamento e queda de desempenho.`}
+];
+
+/* 12 perguntas por quiz (específicas e legíveis) */
+const QUIZZES = {
+  ansiosos: [
+    'Você sente preocupação excessiva sobre várias coisas quase todos os dias?',
+    'Tem dificuldade para controlar a preocupação quando surge?',
+    'Sente sua frequência cardíaca acelerada sem causa física aparente?',
+    'Tem ataques de pânico com sensação de morte iminente?',
+    'Evita situações sociais ou lugares por medo intenso?',
+    'Tem dificuldade para relaxar mesmo quando quer?',
+    'A ansiedade atrapalha seu trabalho ou estudo?',
+    'Tem insônia por ficar ruminando pensamentos ansiosos?',
+    'Os sintomas de ansiedade começaram ou pioraram após um evento estressante?',
+    'Sente sintomas físicos (tensão, tremores, náusea) relacionados à ansiedade?',
+    'Tem medo ou preocupação desproporcional em relação a pequenas coisas?',
+    'A ansiedade interfere em seus relacionamentos pessoais?'
+  ],
+  depressivos: [
+    'Você sente tristeza profunda na maior parte dos dias?',
+    'Perdeu interesse ou prazer em atividades que antes gostava?',
+    'Teve perda ou ganho de peso significativo sem intenção?',
+    'Tem insônia ou dorme excessivamente com frequência?',
+    'Sente fadiga ou perda de energia quase todos os dias?',
+    'Experiencia sentimentos de inutilidade ou culpa excessiva?',
+    'Tem dificuldade de concentração ou tomar decisões simples?',
+    'Já pensou em se machucar ou encontrou-se pensando em morte?',
+    'Isola-se de amigos e família mais do que antes?',
+    'Perdeu motivação para cuidar de si mesmo(a)?',
+    'Seu desempenho no trabalho/escola foi prejudicado pelos sintomas?',
+    'Esses sintomas persistem há mais de duas semanas consecutivas?'
+  ],
+  toc: [
+    'Você tem pensamentos intrusivos ou indesejados que voltam repetidamente?',
+    'Sente que precisa realizar rituais (como lavar as mãos) para reduzir ansiedade?',
+    'Gasta muito tempo em rituais ou verificações (por exemplo: portas, fogão)?',
+    'Evita lugares ou atividades por medo de desencadear obsessões?',
+    'Reconhece que esses pensamentos são excessivos, mas não consegue controlá-los?',
+    'Os rituais interferem no seu dia-a-dia (trabalho, estudos, relações)?',
+    'Sente grande angústia se não conseguir realizar o ritual?',
+    'Tem pensamentos que o envergonham e por isso evita falar sobre eles?',
+    'Já tentou reduzir os rituais sem sucesso prolongado?',
+    'Os pensamentos muitas vezes são sobre contaminação, ordem ou dano?',
+    'Os rituais começaram na adolescência ou idade adulta jovem?',
+    'Procurou ajuda profissional por esses sintomas anteriormente?'
+  ],
+  bipolar: [
+    'Já teve períodos em que se sentiu excessivamente energizado(a) por dias sem precisar de sono?',
+    'Durante episódios, falava mais rápido e parecia ter muitas ideias ao mesmo tempo?',
+    'Já tomou decisões impulsivas durante fases de humor elevado que causaram problemas?',
+    'Teve períodos prolongados de humor extremamente deprimido?',
+    'As mudanças de humor ocorrem em ciclos que atrapalham sua rotina?',
+    'Já teve comportamento de alto risco durante fases de euforia (gastos, sexo, drogas)?',
+    'Notou diferença marcante no padrão de sono entre fases altas e baixas?',
+    'As oscilações de humor afetam seus relacionamentos?',
+    'Alguém já comentou que seu comportamento muda drasticamente sem motivo aparente?',
+    'Recebeu diagnóstico prévio relacionado a transtornos de humor?',
+    'Os episódios de humor foram suficientemente intensos para buscar ajuda médica?',
+    'Os episódios de elevação e depressão se repetem ao longo do tempo?'
+  ],
+  psicoticos: [
+    'Você já ouviu vozes que outras pessoas não escutam?',
+    'Acredita em coisas que outras pessoas dizem não ser verdade (delírios)?',
+    'Tem experiências visuais ou auditivas que parecem reais mas outros não veem?',
+    'Sente que seus pensamentos são colocados ou retirados por forças externas?',
+    'Tem dificuldade para separar imaginação de realidade?',
+    'Notou mudanças de comportamento que preocupam amigos/familiares?',
+    'Tem episódios de confusão intensa ou desorientação?',
+    'Os sintomas causam prejuízo no trabalho ou na vida social?',
+    'Alguma vez foi internado por sintomas psiquiátricos?',
+    'Usou ou usa medicação prescrita para controlar sintomas psicóticos?',
+    'Sente medo ou perseguição sem motivo objetivo?',
+    'Os sintomas duram por semanas ou meses sem melhora?'
+  ],
+  neurodesenvolvimento: [
+    'Houve atraso no desenvolvimento da fala ou linguagem quando era criança?',
+    'Tem dificuldade significativa em entender e usar sinais sociais (olhar, gestos)?',
+    'Apresenta padrões restritos ou interesses intensos por temas específicos?',
+    'Tem dificuldades persistentes de atenção e hiperatividade desde cedo?',
+    'Costuma ter comportamentos repetitivos ou rotinas rígidas?',
+    'Sente sensibilidade excessiva a sons, texturas ou luzes?',
+    'Tem dificuldade para mudar de atividade ou aceitar mudanças de rotina?',
+    'No período escolar, teve dificuldades persistentes de aprendizado?',
+    'Tem problemas para entender humor ou sarcasmo nas conversas?',
+    'Tem dificuldade em manter amizades por diferenças de comportamento social?',
+    'Recebeu diagnóstico de TDAH, TEA ou similar na infância?',
+    'Esses padrões ainda impactam sua vida adulta?'
+  ],
+  neurocognitivos: [
+    'Tem dificuldades recentes e persistentes de memória recente (esquecer conversas)?',
+    'Está se confundindo com datas ou locais que antes conhecia bem?',
+    'Tem dificuldades para seguir instruções simples que antes fazia sem problemas?',
+    'Perde objetos importantes com frequência e não lembra onde deixou?',
+    'Percebeu mudanças de personalidade ou comportamento nas últimas semanas/meses?',
+    'Precisa de ajuda para tarefas domésticas que antes fazia sozinho(a)?',
+    'Tem dificuldade para encontrar palavras durante conversas?',
+    'Já se sentiu desorientado em ambientes conhecidos?',
+    'Sua família notou declínio cognitivo claro?',
+    'Tem dificuldades em planejar e organizar tarefas básicas?',
+    'Os sintomas pioraram progressivamente ao longo do tempo?',
+    'Procurou avaliação neurológica ou cognitiva por esses sintomas?'
+  ],
+  personalidade: [
+    'Sente padrões de relações intensas e instáveis com as pessoas próximas?',
+    'Tem medo persistente de abandono e reage de forma intensa a isso?',
+    'Age de forma impulsiva que prejudica trabalho ou relacionamentos?',
+    'Tem sentimentos crônicos de vazio ou tédio interno?',
+    'Apresenta mudanças bruscas na autoimagem (às vezes se vê como ótimo, depois péssimo)?',
+    'Tem dificuldade em controlar a raiva em situações cotidianas?',
+    'Chama atenção negativa por comportamentos instáveis em público?',
+    'Evita intimidade por medo de se machucar emocionalmente?',
+    'Já recebeu diagnóstico de transtorno de personalidade por um profissional?',
+    'Seus padrões de comportamento são duradouros e começaram cedo na vida adulta?',
+    'Esses padrões causam sofrimento significativo ou prejuízo funcional?',
+    'Tentou mudar esses padrões e sentiu dificuldade persistente em fazê-lo?'
+  ],
+  uso_substancias: [
+    'Usa álcool ou outras drogas com frequência maior que você gostaria?',
+    'Já tentou reduzir o uso sem sucesso prolongado?',
+    'Precisa de quantidades maiores para sentir o mesmo efeito (tolerância)?',
+    'Sente sintomas físicos de abstinência quando para de usar?',
+    'O uso já causou problemas no trabalho, estudos ou relacionamentos?',
+    'Já assumiu riscos (dirigir, brigar) sob efeito de substâncias?',
+    'Parou de frequentar atividades antes apreciadas por causa do uso?',
+    'Família ou amigos já demonstraram preocupação com seu uso?',
+    'Teve problemas legais relacionados ao uso de substâncias?',
+    'Sente perda de controle sobre a quantidade ou frequência do uso?',
+    'Já procurou tratamento profissional para reduzir o uso?',
+    'O uso afeta sua saúde física de forma visível?'
+  ],
+  sono: [
+    'Tem dificuldade para iniciar o sono com frequência?',
+    'Acorda várias vezes durante a noite e tem dificuldade para voltar a dormir?',
+    'Sente-se cansado durante o dia apesar de ter dormido horas suficientes?',
+    'Tem cochilos diurnos longos que atrapalham sua rotina?',
+    'Roncado alto ou relatos de pausas respiratórias durante o sono?',
+    'Movimentos frequentes das pernas ou inquietação durante a noite?',
+    'Uso frequente de eletrônicos antes de dormir que prejudica o sono?',
+    'Depende de remédios para dormir com regularidade?',
+    'Seu sono é irregular e você troca o horário frequentemente?',
+    'O sono ruim prejudica seu desempenho no trabalho/escola?',
+    'Já passou por avaliação médica por problemas de sono?',
+    'Sente sonolência excessiva em situações inseguras (dirigir, operar máquinas)?'
+  ],
+  burnout: [
+    'Sente-se esgotado(a) emocionalmente pela rotina de trabalho?',
+    'Perdeu motivação para realizar tarefas que antes fazia com ânimo?',
+    'Sente distanciamento ou cinismo em relação ao trabalho?',
+    'Percebe queda na sua eficácia profissional ou produtividade?',
+    'Dificuldade para se recuperar emocionalmente após o expediente?',
+    'Trabalha muitas horas sem descanso adequado com frequência?',
+    'Sente-se sobrecarregado(a) com responsabilidades do trabalho?',
+    'Notou problemas de sono e saúde física relacionados ao trabalho?',
+    'Sentiu alteração do apetite ou estado físico por causa do trabalho?',
+    'O trabalho afeta seu equilíbrio entre vida pessoal e profissional?',
+    'Pensou em desistir do emprego por exaustão emocional?',
+    'Buscou ou pensou em buscar ajuda por causa do esgotamento?'
+  ]
+};
+
+/* =================== RENDER / UI =================== */
+function buildCatalog(){
+  const grid = document.getElementById('catalogGrid'); grid.innerHTML = '';
+  DISEASES.forEach(d=>{
+    const el = document.createElement('div'); el.className='disease';
+    el.innerHTML = `<h3>${d.title}</h3><p class="small">${d.short}</p><div style="margin-top:8px;display:flex;gap:8px;justify-content:flex-end"><button class="btn small" onclick="openDetail('${d.id}')">Ver explicação</button><button class="btn ghost small" onclick="openQuiz('${d.id}')">Fazer quiz</button></div>`;
+    grid.appendChild(el);
+  });
+}
+function buildQuizzes(){
+  const grid = document.getElementById('quizGrid'); grid.innerHTML = '';
+  DISEASES.forEach(d=>{
+    const t = document.createElement('div'); t.className='quiz-tile';
+    t.innerHTML = `<strong>${d.title}</strong><div class="small" style="margin-top:8px">${d.short}</div>`;
+    t.onclick = ()=> openQuiz(d.id);
+    grid.appendChild(t);
+  });
+  const quick = document.getElementById('quickQuizzes'); quick.innerHTML = '';
+  DISEASES.slice(0,6).forEach(d=>{
+    const q = document.createElement('div'); q.style.margin='6px 0';
+    q.innerHTML = `<button class="btn" style="width:100%" onclick="openQuiz('${d.id}')">${d.title}</button>`;
+    quick.appendChild(q);
+  });
+}
+
+/* =================== NAVIGATION =================== */
+const navBtns = Array.from(document.querySelectorAll('.nav button'));
+navBtns.forEach(b=>b.addEventListener('click', ()=>{ const s=b.getAttribute('data-section'); navGo(s); }));
+function navGo(section){
+  navBtns.forEach(x=>x.classList.remove('active'));
+  const btn = navBtns.find(x=>x.getAttribute('data-section')===section); if(btn) btn.classList.add('active');
+  ['home','aprender','quizzes','diario','ajuda'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display = (id===section)?'block':'none'; });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* =================== QUIZ modal (pergunta-a-pergunta) =================== */
+const quizModal = document.getElementById('quizModal');
+const quizCard = document.getElementById('quizCard');
+
+function showModal(){ quizModal.style.display='flex'; quizModal.classList.add('show'); document.body.style.overflow='hidden'; }
+function closeModal(){ quizModal.style.display='none'; quizModal.classList.remove('show'); quizCard.innerHTML=''; document.body.style.overflow='auto'; }
+
+function openDetail(id){
+  const d = DISEASES.find(x=>x.id===id);
+  quizCard.innerHTML = `<h2>${d.title}</h2><pre style="white-space:pre-wrap;color:var(--muted)">${d.details}</pre><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button class="btn" onclick="openQuiz('${d.id}')">Fazer quiz</button><button class="btn ghost small" onclick="closeModal()">Fechar</button></div>`;
+  showModal();
+}
+
+function openQuiz(id){
+  const qset = QUIZZES[id];
+  if(!qset){ alert('Quiz não disponível para: ' + id); return; }
+  const d = DISEASES.find(x=>x.id===id) || {title:id};
+  let idx = 0;
+  const answers = Array(qset.length).fill(null);
+
+  function renderQuestion(i){
+    quizCard.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Quiz — ${d.title}</h2><div><button class="btn ghost" onclick="closeModal()">Fechar</button></div>
+      </div>
+      <div class="progress" aria-hidden><i id="progressBar" style="width:${Math.round(((i)/qset.length)*100)}%"></i></div>
+      <div id="questionWrap" class="question-area"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div class="small">Pergunta ${i+1} de ${qset.length}</div>
+        <div><button id="prevQ" class="btn ghost small">Anterior</button> <button id="nextQ" class="btn small">Próxima</button></div>
+      </div>
+    `;
+    const body = document.getElementById('questionWrap');
+    body.innerHTML = '';
+    const qdiv = document.createElement('div');
+    qdiv.innerHTML = `<div style="font-weight:800;font-size:18px">${i+1}. ${qset[i]}</div>`;
+    const opts = document.createElement('div'); opts.className='options';
+    // respostas padrão 4 opções Likert onde faz sentido, senão 2 opções Sim/Não
+    const sampleOpts = qset[i].toLowerCase().includes('sim') || qset[i].toLowerCase().includes('já') || qset[i].toLowerCase().includes('tem') ? ['Sim','Não'] : ['Nunca','Às vezes','Frequentemente','Quase sempre'];
+    sampleOpts.forEach((label,oi)=>{
+      const b = document.createElement('button'); b.className='option-btn'; b.innerText = label;
+      if(answers[i]===oi) b.classList.add('selected');
+      b.onclick = ()=>{ answers[i]=oi; Array.from(opts.children).forEach(c=>c.classList.remove('selected')); b.classList.add('selected'); };
+      opts.appendChild(b);
+    });
+    qdiv.appendChild(opts); body.appendChild(qdiv);
+
+    document.getElementById('prevQ').onclick = ()=>{ if(i>0){ idx = i-1; renderQuestion(idx); } };
+    document.getElementById('nextQ').onclick = ()=>{ if(i < qset.length - 1){ idx = i+1; renderQuestion(idx); } else { finishQuiz(); } };
+  }
+
+  function finishQuiz(){
+    if(answers.every(a=>a===null) && !confirm('Você não respondeu nada. Enviar mesmo assim?')) return;
+    // pontuação simples: se resposta index null->0, else index value. For 2-option map Sim=3/Não=0 to give weight.
+    let score = 0; let max = 0;
+    for(let i=0;i<answers.length;i++){
+      const q = QUIZZES[id][i];
+      const optsCount = (q.toLowerCase().includes('sim')||q.toLowerCase().includes('já')||q.toLowerCase().includes('tem')) ? 2 : 4;
+      max += (optsCount===2?3:3);
+      const val = answers[i];
+      if(val===null) continue;
+      if(optsCount===2) score += (val===0?3:0);
+      else score += val; // 0..3
+    }
+    const pct = Math.round((score / max) * 100);
+    const interp = pct<35 ? 'Baixo risco — sintomas leves ou ausentes.' : pct<70 ? 'Risco moderado — avalie procurar apoio.' : 'Alto risco — procure avaliação profissional.';
+    quizCard.innerHTML = `<h2>${d.title} — Resultado</h2><div class="result">${pct}% — ${interp}</div>
+      <div style="margin-top:12px"><strong>Próximos passos</strong><ul><li>Considere avaliação profissional qualificada.</li><li>Autocuidado: sono regular, respiração, atividade física e rotina.</li><li>Se risco agudo, procure emergência/apoio imediato.</li></ul></div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button class="btn" onclick="closeModal()">Fechar</button></div>`;
+    // salvar local (simples)
+    try{
+      const KEY='mv_results_all';
+      const cur = JSON.parse(localStorage.getItem(KEY)||'[]');
+      cur.push({id,dtitle:d.title,date:new Date().toISOString(),pct});
+      localStorage.setItem(KEY,JSON.stringify(cur));
+    }catch(e){}
+  }
+
+  showModal();
+  renderQuestion(0);
+}
+
+/* =================== STORAGE: diário =================== */
+const DIARY_KEY = 'mv_diary_all';
+function loadDiary(){
+  const cur = JSON.parse(localStorage.getItem(DIARY_KEY)||'[]'); const list = document.getElementById('diaryList'); list.innerHTML = '';
+  cur.slice().reverse().forEach(it=>{ const div = document.createElement('div'); div.className='diary-item'; div.innerHTML = `<strong>${new Date(it.date).toLocaleString()}</strong><p class="small" style="margin:8px 0">${escapeHtml(it.text)}</p>`; list.appendChild(div); });
+}
+document.getElementById('saveDiary').addEventListener('click', ()=>{
+  const v = document.getElementById('diaryText').value.trim(); if(!v) return alert('Escreva algo.'); const cur = JSON.parse(localStorage.getItem(DIARY_KEY)||'[]'); cur.push({date:new Date().toISOString(), text:v}); localStorage.setItem(DIARY_KEY, JSON.stringify(cur)); document.getElementById('diaryText').value=''; loadDiary(); alert('Entrada salva localmente.'); });
+
+/* =================== CHAT ASSISTANT (humano e aprendendo) =================== */
+const BOT_MEM_KEY = 'mv_bot_mem_all';
+let botMemory = JSON.parse(localStorage.getItem(BOT_MEM_KEY)||'{}');
+const chatWindow = document.getElementById('chatWindow'); const chatInput = document.getElementById('chatInput'); const chatSend = document.getElementById('chatSend'); const fab = document.getElementById('fab');
+
+function appendBot(text, opts={}){ const d=document.createElement('div'); d.className='chat-bubble chat-bot'; d.innerText=text; if(opts.strong) d.style.fontWeight='700'; d.style.padding='8px'; d.style.borderRadius='10px'; d.style.margin='8px 0'; chatWindow.appendChild(d); chatWindow.scrollTop = chatWindow.scrollHeight; }
+function appendUser(text){ const d=document.createElement('div'); d.className='chat-bubble chat-user'; d.innerText=text; d.style.padding='8px'; d.style.borderRadius='10px'; d.style.margin='8px 0'; chatWindow.appendChild(d); chatWindow.scrollTop = chatWindow.scrollHeight; }
+
+function learn(text){ const words = (text.toLowerCase().match(/\b[a-zãõáéíóúç]{3,}\b/g)||[]); words.forEach(w=> botMemory[w] = (botMemory[w]||0)+1); localStorage.setItem(BOT_MEM_KEY, JSON.stringify(botMemory)); }
+
+function detectIntent(text){
+  const t = text.toLowerCase();
+  const crisis = ['suicid','quero morrer','me matar','tirar minha vida','acabar com minha vida'];
+  if(crisis.some(w=>t.includes(w))) return {type:'crisis', reply:'Se você pensa em se machucar, procure ajuda IMEDIATA. No Brasil: CVV 188. Quer que eu te mostre passos práticos agora?', urgent:true};
+  const qmatch = t.match(/\bquiz\s+([a-zçãõ_ ]+)/i);
+  if(qmatch){ const name = qmatch[1].trim(); const found = DISEASES.find(d=> d.id.includes(name.replace(/\s+/g,'_')) || d.title.toLowerCase().includes(name)); if(found) return {type:'open_quiz', reply:`Beleza — abrindo quiz de ${found.title}`, action:()=>openQuiz(found.id)}; return {type:'no_quiz', reply:'Não encontrei esse quiz. Tente: ansiedade, depressão, toc, bipolar, sono.'}; }
+  const sad = ['triste','tristeza','depress','chorei','vazio']; const anx = ['ansios','ansiedade','nervos','pânico','panico','medo']; const stress = ['estress','exaust','cansad'];
+  if(sad.some(w=>t.includes(w))) return {type:'emotion', reply:'Poxa... sinto muito. Quer 3 passos rápidos para aliviar agora? (1) respirar, (2) caminhar 5 min, (3) escrever 3 coisas boas)', emotion:'sad'};
+  if(anx.some(w=>t.includes(w))) return {type:'emotion', reply:'Parece ansiedade. Quer que eu te guie numa respiração 4-4-6 agora?', emotion:'anx'};
+  if(stress.some(w=>t.includes(w))) return {type:'emotion', reply:'Parece estresse. Posso sugerir pausas e alongamentos curtos.', emotion:'stress'};
+  if(t.includes('o que é')||t.includes('explica')){ const found = DISEASES.find(d=> t.includes(d.id) || t.includes(d.title.toLowerCase().split(' ')[0])); if(found) return {type:'explain', reply:`${found.title}: ${found.short}`, action:()=>navGo('aprender')}; return {type:'ask', reply:'Sobre qual condição quer saber (ex: ansiedade)?'}; }
+  if(text.trim().length<10) return {type:'prompt', reply:'Conta um pouco mais pra eu entender :)'};
+  return {type:'reflect', reply:'Entendi. Você prefere: 1) explicação, 2) passos práticos, 3) começar um quiz? Responda 1/2/3.'};
+}
+
+function handleChat(input){
+  const text = (input||'').trim(); if(!text) return;
+  appendUser(text); learn(text);
+  const intent = detectIntent(text);
+  appendBot(intent.reply, {strong:intent.urgent});
+  if(intent.action) setTimeout(()=> intent.action(),700);
+}
+chatSend.addEventListener('click', ()=>{ handleChat(chatInput.value); chatInput.value=''; chatInput.focus(); });
+chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); chatSend.click(); }});
+document.getElementById('fab').addEventListener('click', ()=>{ navGo('ajuda'); chatInput.focus(); appendBot('Abrindo assistente — escreva o que sente ou digite \"quiz ansiedade\" para começar.'); });
+
+/* initial greeting */
+(function greet(){ if(!localStorage.getItem('mv_seen_all')){ setTimeout(()=> appendBot('Oii! Eu sou o Mente Verde 🌿 — como você está hoje?'),420); localStorage.setItem('mv_seen_all','1'); } else setTimeout(()=> appendBot('Bem-vindo de volta! Quer conversar ou fazer um quiz?'),420); })();
+
+/* =================== ANIMAÇÕES (folhas) =================== */
+function spawnLeaf(){
+  const el = document.createElement('div'); el.className='leaf'; el.style.left = Math.random()*100 + '%'; el.style.fontSize = (12 + Math.random()*30) + 'px'; el.innerText = ['🍃','🌿','🍂'][Math.floor(Math.random()*3)]; document.body.appendChild(el);
+  const dur = 9000 + Math.random()*7000; let start = null;
+  function anim(ts){ if(!start) start = ts; const p = (ts - start) / dur; el.style.transform = `translateY(${(-window.innerHeight - 200) * p}px) rotate(${p*360}deg)`; el.style.opacity = String(1 - p); if(p < 1) requestAnimationFrame(anim); else el.remove(); }
+  requestAnimationFrame(anim);
+}
+setInterval(spawnLeaf, 900);
+
+/* =================== HELPERS & INIT =================== */
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); }
+navGo('home'); buildCatalog(); buildQuizzes(); loadDiary();
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+quizModal.addEventListener('click', e=>{ if(e.target === quizModal) closeModal(); });
+</script>
+</body>
+</html>
